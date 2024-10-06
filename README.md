@@ -37,4 +37,9 @@ Nhược điểm:
 
   <h4>Thiết bị đang được xếp theo thứ tự từ yếu đến mạnh.</h4>
 
+  ______________________________________________________________________________________
+
+  <h3>Để chạy chuẩn môi trường thì dùng lệnh</h3>
+
+  ```pip install -r requirements.txt```
   
