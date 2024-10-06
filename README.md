@@ -10,13 +10,10 @@
 
 Nhược điểm :
 
-- vì là xủ lý ảnh nên phụ thuộc vào ánh sáng nhiều
-
-- khi ở gần thì bị trùng màu với cái rổ nên nhảy bbox tùm lum, ở xa thì sẽ ok khi chỉnh lại ngưỡng độ to nhỏ của vật
+- vì là xủ lý ảnh nên phụ thuộc vào ánh sáng môi trường nhiều
 
 - tùy thuộc vào môi trường mà có lẽ sẽ cần sửa lại ngưỡng nhiều. Nếu chạy đúng 1 môi trường thì nên dùng xử lý ảnh .
 
--   Đi thi đấu thì hên xui khi bạn không thể chỉnh lại ngưỡng đúng.
 
 <h3>main.py dùng để nhận diện ball , backboard, rim. </h3>
 
