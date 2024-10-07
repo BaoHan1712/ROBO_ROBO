@@ -9,11 +9,11 @@ class_name = ['backboard', 'ball', 'basket']
 model = YOLO("model\\yolo11.onnx")
 
 ################# Sửa lại thông số trong này  ##############
-KNOWN_DISTANCE_BACKBOARD = 50  # Khoảng cách từ camera tới backboard
-KNOWN_HEIGHT_BACKBOARD = 70  # Chiều cao của backboard 
+KNOWN_DISTANCE_BACKBOARD = 70  # Khoảng cách từ camera tới backboard
+KNOWN_HEIGHT_BACKBOARD = 40  # Chiều cao của backboard 
 
 KNOWN_DISTANCE_BASKET = 40  # Khoảng cách từ camera tới backboard
-KNOWN_HEIGHT_BASKET = 50  # Chiều cao của backboard 
+KNOWN_HEIGHT_BASKET = 30  # Chiều cao của backboard 
 
 
 prev_frame_time = 0
@@ -44,6 +44,7 @@ while True:
                 cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
                 cv2.circle(frame, (cx, cy), 6, (0, 0, 255), -1)
 
+            # Tính độ lệch
                 calculator_offset(frame , cx , x1 , y2)
 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
@@ -56,12 +57,16 @@ while True:
 
             # Vẽ đường tròn tại trung tâm
                 cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
-                cv2.circle(frame, (cx, cy), 6, (0, 0, 255), -1)
+             # Điều chỉnh giá trị này để dịch lên trên
+                cy -= 140 
+                cv2.circle(frame, (cx, cy), 6, (124, 0, 125), -1)
 
+            # Tính độ lệch
                 calculator_offset(frame , cx, x1 , y2 )
 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
 
     fps = cv2.getTickFrequency() / (new_frame_time - prev_frame_time)
     prev_frame_time = new_frame_time
