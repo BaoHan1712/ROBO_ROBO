@@ -1,11 +1,11 @@
 import cv2 
 import numpy as np
 
-cap = cv2.VideoCapture("data\clip_7d.mp4")
+cap = cv2.VideoCapture("data\est.mp4")
 
 # Ngưỡng để nhận đối tượng to hay nhỏ
-MIN_WIDTH = 25
-MIN_HEIGHT = 25
+MIN_WIDTH = 35
+MIN_HEIGHT = 35
 
 def contour(frame, hsv):
     lower_blue = np.array([0, 84, 0]) 
@@ -13,12 +13,19 @@ def contour(frame, hsv):
 
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
 
-    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # Xói mòn và giản nở để làm mịn vùng mask
+    kernel = np.ones((5, 5), np.uint8)
+
+    mask_e = cv2.erode(mask, kernel, iterations=1)  # Xói mòn
+    mask_dit = cv2.dilate(mask_e, kernel, iterations=2)  # Giản nở
+
+    cv2.imshow('Mask Eroded', mask_e)
+    cv2.imshow('Mask dit', mask_dit)
+
+    contours, _ = cv2.findContours(mask_dit, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
-
-        aspect_ratio = w / h
 
         # Tính độ tròn (circularity)
         area = cv2.contourArea(contour)
@@ -29,9 +36,10 @@ def contour(frame, hsv):
             circularity = 0
 
         # Kiểm tra nếu đối tượng có hình dạng gần tròn
-        if w > MIN_WIDTH and h > MIN_HEIGHT and 0.9 <= aspect_ratio <= 1.1 and circularity > 0.4:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(frame, f"Ball: {circularity:.2f}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        if w > MIN_WIDTH and h > MIN_HEIGHT and circularity > 0.5:
+            cv2.rectangle(frame, (x, y), (x + w + 1, y + h + 1), (0, 255, 0), 2)
+            cv2.putText(frame, f"Ball {circularity:.2f}", (x, y - 3), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
 
 while True:
     ret, frame = cap.read()
