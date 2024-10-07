@@ -21,11 +21,13 @@ Nhược điểm :
 
 - Vì là mô hình deeplearning nên cân hết mọi loại môi trường, khi được xử lý tiền dữ liệu chuẩn và optimize chuẩn thì mô hình sẽ rất chính xác
 
-- Hiện tại đã xong phần nhận diện bóng , vành rổ , bảng bóng , đã xong cả chỉnh offset của bảng bóng
-- 
+- Hiện tại đã xong phần nhận diện bóng , vành rổ , bảng bóng , đã xong cả chỉnh offset của bảng bóng, tính khoảng cách từ vật tới camera
+
   => Giúp robot có thể tự căn góc độ và chỉnh lại vị trí trung tâm để bắn bóng vào rổ
   
   => Đã có tính độ lệch vị trí camera tới trục tọa độ trung tâm
+
+  => Giúp robot cố định vị trí để tung ra lực bay tới rổ và bảng rổ
   
 Nhược điểm:
 
