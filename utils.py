@@ -36,11 +36,11 @@ def process_distance(frame, x1, y1, y2, known_height,KNOWN_DISTANCE):
     global FOCAL_LENGTH
 
     # Tính chiều cao pixel của đối tượng
-    pixel_height = y2 - y1
+    pixel_height =  y2 - y1
 
     if FOCAL_LENGTH is None:
         FOCAL_LENGTH = calculate_focal_length(KNOWN_DISTANCE, known_height, pixel_height)
 
     distance = calculate_distance(FOCAL_LENGTH, known_height, pixel_height)
-    cv2.putText(frame, f'Khoang cach: {distance:.2f} cm', (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
+    cv2.putText(frame, f'Khoang cach:{distance:.2f}cm', (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
 
