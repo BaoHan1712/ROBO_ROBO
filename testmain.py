@@ -3,18 +3,17 @@ from ultralytics import YOLO
 import numpy as np
 from utils import  process_distance, calculator_offset
 
-cap = cv2.VideoCapture("data\clip_3d.mp4")
+cap = cv2.VideoCapture("data\o.MOV")
 
 class_name = ['backboard', 'ball', 'basket']
 model = YOLO("model\\yolo11.onnx")
 
 ################# Sửa lại thông số trong này  ##############
-
-KNOWN_DISTANCE_BACKBOARD = 50  # Khoảng cách từ camera tới backboard
-KNOWN_HEIGHT_BACKBOARD = 70  # Chiều cao của backboard 
+KNOWN_DISTANCE_BACKBOARD = 70  # Khoảng cách từ camera tới backboard
+KNOWN_HEIGHT_BACKBOARD = 40  # Chiều cao của backboard 
 
 KNOWN_DISTANCE_BASKET = 40  # Khoảng cách từ camera tới backboard
-KNOWN_HEIGHT_BASKET = 50  # Chiều cao của backboard 
+KNOWN_HEIGHT_BASKET = 30  # Chiều cao của backboard 
 
 
 prev_frame_time = 0
@@ -58,7 +57,9 @@ while True:
 
             # Vẽ đường tròn tại trung tâm
                 cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
-                cv2.circle(frame, (cx, cy), 6, (0, 0, 255), -1)
+             # Điều chỉnh giá trị này để dịch lên trên
+                cy -= 140 
+                cv2.circle(frame, (cx, cy), 6, (124, 0, 125), -1)
 
             # Tính độ lệch
                 calculator_offset(frame , cx, x1 , y2 )
